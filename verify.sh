@@ -47,18 +47,31 @@ else
 fi
 
 echo
-echo "CLAIM 3: the flop-labs GitHub org publishes exactly one repository"
+echo "CLAIM 3: the flop-labs org publishes only known repos, none of them a faucet"
+# Known as of 2026-09-02. A NEW repo here is news; one named for a faucet or
+# testnet is the news this file exists to catch.
+KNOWN='technocore-chat tclk'
 if command -v curl >/dev/null; then
   repos=$(curl -s --max-time 20 https://api.github.com/orgs/flop-labs/repos \
           | grep -o '"full_name": *"[^"]*"' | sed 's/.*: *"//;s/"//' || true)
   n=$(printf '%s\n' "$repos" | grep -c . || true)
-  if [ "$n" = "1" ] && printf '%s' "$repos" | grep -q 'technocore-chat'; then
-    ok "one repo: $repos"
-  elif [ "$n" = "0" ]; then
+  if [ "$n" = "0" ]; then
     note "GitHub API returned nothing (rate limit?), inconclusive"
   else
-    bad "org now has $n repos - a faucet or testnet repo may have appeared:"
-    printf '        %s\n' $repos
+    unknown=''
+    for r in $repos; do
+      name="${r#flop-labs/}"
+      case " $KNOWN " in *" $name "*) ;; *) unknown="$unknown $name" ;; esac
+    done
+    if [ -z "$unknown" ]; then
+      ok "$n repo(s), all known: $(echo $repos | tr '\n' ' ')"
+    else
+      bad "NEW official repo(s):$unknown"
+      case "$unknown" in
+        *faucet*|*testnet*|*drop*|*claim*)
+          bad "  ^ named for a faucet/testnet - VERIFY BEFORE TRUSTING ANY ROOM CLAIM" ;;
+      esac
+    fi
   fi
 fi
 
