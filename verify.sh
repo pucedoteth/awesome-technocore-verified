@@ -18,7 +18,11 @@ note() { printf '  \033[33mSKIP\033[0m  %s\n' "$1"; }
 get_code() {
   local url="$1" code=000
   for _ in 1 2 3 4 5 6 7 8; do
-    code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$url" || echo 000)
+    # No '|| echo 000': on timeout curl BOTH prints 000 and exits non-zero, so a
+    # fallback echo concatenates a second one and yields "000000" — which matches
+    # no branch below and was reported as a possible faucet. Observed 2026-09-06.
+    code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "$url")
+    [ -n "$code" ] || code=000
     case "$code" in 000|502|503) sleep 5 ;; *) break ;; esac
   done
   echo "$code"
