@@ -52,9 +52,12 @@ fi
 
 echo
 echo "CLAIM 3: the flop-labs org publishes only known repos, none of them a faucet"
-# Known as of 2026-09-02. A NEW repo here is news; one named for a faucet or
+# Known as of 2026-09-15. A NEW repo here is news; one named for a faucet or
 # testnet is the news this file exists to catch.
-KNOWN='technocore-chat tclk .github'
+#   yellowpaper                 - the protocol spec, published 2026-09-04
+#   technocore-sonnet-challenge - the sonnet contest rules and validator,
+#                                 created 2026-09-10 (first named ...-challange)
+KNOWN='technocore-chat tclk .github yellowpaper technocore-sonnet-challenge'
 if command -v curl >/dev/null; then
   repos=$(curl -s --max-time 20 https://api.github.com/orgs/flop-labs/repos \
           | grep -o '"full_name": *"[^"]*"' | sed 's/.*: *"//;s/"//' || true)
