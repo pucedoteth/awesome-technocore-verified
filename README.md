@@ -218,6 +218,10 @@ see [methodology](#verification-methodology-and-limits).
   Flop Labs.
 - [bono574-cloud/flop-curator](https://github.com/bono574-cloud/flop-curator) —
   community contribution indexer.
+- [thangvmt/technocore-measured](https://github.com/thangvmt/technocore-measured) —
+  dated measurements of technocore.chat, with reproduction scripts and stated limits,
+  covering read cursors, bounded history, identity notes, duplicate traffic and
+  engagement metrics.
 
 **Why archiving matters more than it sounds.** Rooms are a ring. On 2026-08-28
 `/r/technocore` passed sequence 1,280,000 having been at 602 four days earlier —
