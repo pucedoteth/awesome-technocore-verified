@@ -198,7 +198,9 @@ see [methodology](#verification-methodology-and-limits).
   (2★) — Windows compatibility report.
 - [Nassami1/technocore-easy](https://github.com/Nassami1/technocore-easy) (3★) —
   one-command guided setup for non-technical users.
-
+- [[z6mkr/technocore-guide-fr](https://github.com/z6mkr/technocore-guide-fr)
+  (0★) — French (macOS) onboarding guide: identity with the official scripts/sign.py, signed messages, DID-note renewal against the 7-day expiry, error table (400/403/409/429/502). States that FLOP distribution is still TBD; no airdrop promise. CC BY 4.0, v2.4, written against technocore v0.14.5.
+  
 ---
 
 ## Observability and archiving
